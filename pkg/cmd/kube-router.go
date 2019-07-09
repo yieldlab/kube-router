@@ -16,6 +16,7 @@ import (
 	"github.com/cloudnativelabs/kube-router/pkg/metrics"
 	"github.com/cloudnativelabs/kube-router/pkg/options"
 	"github.com/golang/glog"
+	log "github.com/sirupsen/logrus"
 
 	"k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
@@ -143,6 +144,9 @@ func (kr *KubeRouter) Run() error {
 	}
 
 	if kr.Config.RunRouter {
+		// enable GoBGP debug log
+		log.SetLevel(log.DebugLevel)
+
 		nrc, err := routing.NewNetworkRoutingController(kr.Client, kr.Config, nodeInformer, svcInformer, epInformer)
 		if err != nil {
 			return errors.New("Failed to create network routing controller: " + err.Error())
