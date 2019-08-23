@@ -86,7 +86,7 @@ func (hc *HealthController) HandleHeartbeat(beat *ControllerHeartbeat) {
 
 	case beat.Component == "NRC":
 		if hc.Status.NetworkRoutingControllerAliveTTL == 0 {
-			hc.Status.NetworkRoutingControllerAliveTTL = time.Since(hc.Status.NetworkRoutingControllerAlive)
+			hc.Status.NetworkRoutingControllerAliveTTL = time.Since(hc.Status.NetworkRoutingControllerAlive) + 30 * time.Second
 		}
 		hc.Status.NetworkRoutingControllerAlive = beat.LastHeartBeat
 
