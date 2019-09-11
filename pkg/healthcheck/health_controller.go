@@ -107,7 +107,7 @@ func (hc *HealthController) CheckHealth() bool {
 	graceTime := time.Duration(1500 * time.Millisecond)
 
 	if hc.Config.RunFirewall {
-		if time.Since(hc.Status.NetworkPolicyControllerAlive) > hc.Config.IPTablesSyncPeriod+hc.Status.NetworkPolicyControllerAliveTTL+graceTime {
+		if time.Since(hc.Status.NetworkPolicyControllerAlive) > hc.Config.IPTablesSyncPeriod+hc.Status.NetworkPolicyControllerAliveTTL+graceTime+45*time.Second {
 			glog.Error("Network Policy Controller heartbeat missed")
 			health = false
 		}
